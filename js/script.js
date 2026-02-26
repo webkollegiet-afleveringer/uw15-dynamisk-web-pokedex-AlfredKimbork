@@ -13,20 +13,40 @@ async function loadMore(page = "https://pokeapi.co/api/v2/pokemon") {
             loadMore(data.next)
             observer.unobserve(entries[0].target)
         }
-    }, {
-        rootMargin: "0 0 1000px 0"
-    })
+    }, { rootMargin: "0 0 1000px 0" })
 
-    document.querySelector(".poke-list").innerHTML += characters.map(character => { return `    
-        <li class="poke-card">
-            ${character.name}
-                <img class="card-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${character.url.slice(0, -1).split("/").pop(-1)}.png" alt="${character.name}">
-        </li>`}).join(" ")
+    document.querySelector(".poke-list").innerHTML += characters.map(character => { 
+        const id = character.url.slice(0, -1).split("/").pop(-1)
+        let idFormat
+        switch (id.length) {
+            case 1:
+                idFormat = `#000${id}`
+                break;
+            case 2:
+                idFormat = `#00${id}`
+                break;
+            case 3:
+                idFormat = `#0${id}`
+                break;
+            case 4:
+                idFormat = `#${id}`
+                break;
+            default:
+                idFormat = `#????`
+                break;
+        }
+        return `    
+            <li class="poke-card">
+                <span class="poke-id">${idFormat}</span>
+                <img class="card-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png" alt="${character.name}">
+                ${character.name}
+            </li>
+        `
+    }).join(" ")
 
-    const lastCard = document.querySelector(".poke-card:last-child");
-    observer.observe(lastCard)
+    observer.observe(document.querySelector(".poke-card:last-child"))
 }
 
-document.querySelector("#main").innerHTML = `<ol class="poke-list"></ol>`;
+document.querySelector("#main").innerHTML = `<ul class="poke-list"></ul>`;
 
 loadMore()

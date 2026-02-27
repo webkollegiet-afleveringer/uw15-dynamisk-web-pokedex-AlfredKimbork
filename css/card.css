@@ -1,0 +1,244 @@
+@import url(./base.css);
+
+.__header {
+    display: flex;
+    gap: 1rem;
+
+    padding: 2.5rem;
+    align-items: center;
+
+    & h1 {
+        font-size: 2.5rem;
+    }
+
+    & .__id {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-left: auto;
+    }
+}
+
+.__pokeCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    background: #FFF;
+
+    padding: 2.5rem;
+    margin-inline: max(1rem, (100% - 40rem) / 2);
+
+    border-radius: 1rem;
+}
+
+.__types {
+    list-style: none;
+    display: flex;
+    gap: .5rem;
+}
+
+.__attributes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr 1rem;
+    gap: 1rem 2rem;
+    list-style: none;
+    font-weight: 300;
+
+    & > * {
+        grid-row: span 2;
+        display: grid;
+        grid-template-rows: subgrid;
+
+        align-items: center;
+        justify-content: center;
+
+        & div {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+    }
+}
+
+.--abilities {
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.__progress {
+    height: .5rem;
+    border-radius: 1rem;
+
+    &::-webkit-progress-bar {
+        height: .5rem;
+        border-radius: 1rem;
+        background: #F1F1F1;
+    }
+
+    &::-webkit-progress-value {
+        border-radius: 1rem 0 0 1rem;
+        background: #B8B8B8;
+    }
+}
+
+/* classes */
+.--grass {
+    background-color:#74CB48;
+
+    & .--colored {
+        color: #74CB48;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #E3F5DA;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #74CB48;
+    }
+}
+
+.--fire {
+    background-color:#F57D31;
+
+    & .--colored {
+        color: #F57D31;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #FDE5D6;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #F57D31;
+    }
+}
+
+.--water {
+    background-color: #6493EB;
+
+    & .--colored {
+        color: #6493EB;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #E0E9FB;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #6493EB;
+    }
+}
+
+.--bug {
+    background-color: #A7B723;
+
+    & .--colored {
+        color: #A7B723;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #EDF1D3;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #A7B723;
+    }
+}
+
+.--electric {
+    background-color: #F9CF30;
+
+    & .--colored {
+        color: #F9CF30;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #FEF5D6;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #F9CF30;
+    }
+}
+
+.--ghost {
+    background-color: #70559B;
+
+    & .--colored {
+        color: #70559B;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #E8E4F0;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #70559B;
+    }
+}
+
+.--normal {
+    background-color: #AAA67F;
+
+    & .--colored {
+        color: #AAA67F;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #EEEDE5;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #AAA67F;
+    }
+}
+
+.--psychic {
+    background-color: #FB5584;
+
+    & .--colored {
+        color: #FB5584;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #FEDDE6;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #FB5584;
+    }
+}
+
+.--steel {
+    background-color: #B7B9D0;
+
+    & .--colored {
+        color: #B7B9D0;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #F2F2F7;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #B7B9D0;
+    }
+}
+
+.--poison {
+    background-color: #A43E9E;
+
+    & .--colored {
+        color: #A43E9E;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #f9eff8;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #A43E9E;
+    }
+}

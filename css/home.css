@@ -27,6 +27,8 @@
 
     align-items: center;
     text-transform: capitalize;
+    text-decoration: none;
+    color: #000;
     font-size: 3rem;
 }
 

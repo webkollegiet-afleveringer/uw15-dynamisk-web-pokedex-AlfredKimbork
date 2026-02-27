@@ -1,10 +1,11 @@
 @import url(./base.css);
+@import url(./pokeTypes.css);
 
 .__header {
     display: flex;
     gap: 1rem;
 
-    padding: 2.5rem;
+    padding: 2.5rem 2.5rem 15rem;
     align-items: center;
 
     & h1 {
@@ -18,17 +19,36 @@
     }
 }
 
+.__pokeNav {
+    margin: 2rem max(1rem, (100% - 37.5rem) / 2);
+
+    & .--prev {
+        margin-right: auto;
+    }
+
+    & .--next {
+        margin-left: auto;
+    }
+}
+
 .__pokeCard {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
     background: #FFF;
 
-    padding: 2.5rem;
+    padding: 7rem 2.5rem 2.5rem;
     margin-inline: max(1rem, (100% - 40rem) / 2);
 
     border-radius: 1rem;
+}
+
+.__img {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 5rem;
 }
 
 .__types {
@@ -41,7 +61,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr 1rem;
-    gap: 1rem 2rem;
+    gap: 1rem 3rem;
     list-style: none;
     font-weight: 300;
 
@@ -58,7 +78,30 @@
             align-items: center;
             gap: .5rem;
         }
+
+        &:nth-of-type(2) {
+        position: relative;
+
+            &::after, &::before {
+                content: "";
+                position: absolute;
+
+                height: 100%;
+                width: .175rem;
+                border-radius: .5rem;
+
+                background: #F0F0F0;
+                left: -25%;
+                transform: translateX(50%);
+            }
+
+            &::after {
+                left: 125%;
+                transform: translateX(-50%);
+            }
+        }
     }
+
 }
 
 .--abilities {
@@ -66,9 +109,45 @@
     gap: .25rem;
 }
 
+.__stats {
+    flex-direction: column;
+    gap: 1.25rem;
+
+    width: 100%;
+
+    & .__body {
+        grid-template-columns: 4rem 4rem auto;
+
+        & .__data {
+            grid-column: span 3;
+
+            display: grid;
+            grid-template-columns: subgrid;
+
+            & .__stat {
+                text-align: end;
+                padding-right: 1rem;
+                padding-block: .25rem;
+
+                border-right: .175rem solid #F0F0F0;
+            }
+
+            & .__stat-val {
+                padding-inline: 1rem;
+            }
+        }
+    }
+}
+
+.__stats .__heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
 .__progress {
-    height: .5rem;
+    width: 100%;
     border-radius: 1rem;
+    transform: translateY(22.5%);
 
     &::-webkit-progress-bar {
         height: .5rem;
@@ -79,166 +158,5 @@
     &::-webkit-progress-value {
         border-radius: 1rem 0 0 1rem;
         background: #B8B8B8;
-    }
-}
-
-/* classes */
-.--grass {
-    background-color:#74CB48;
-
-    & .--colored {
-        color: #74CB48;
-    }
-
-    & .__progress::-webkit-progress-bar {
-        background: #E3F5DA;
-    }
-
-    & .__progress::-webkit-progress-value {
-        background: #74CB48;
-    }
-}
-
-.--fire {
-    background-color:#F57D31;
-
-    & .--colored {
-        color: #F57D31;
-    }
-
-    & .__progress::-webkit-progress-bar {
-        background: #FDE5D6;
-    }
-
-    & .__progress::-webkit-progress-value {
-        background: #F57D31;
-    }
-}
-
-.--water {
-    background-color: #6493EB;
-
-    & .--colored {
-        color: #6493EB;
-    }
-
-    & .__progress::-webkit-progress-bar {
-        background: #E0E9FB;
-    }
-
-    & .__progress::-webkit-progress-value {
-        background: #6493EB;
-    }
-}
-
-.--bug {
-    background-color: #A7B723;
-
-    & .--colored {
-        color: #A7B723;
-    }
-
-    & .__progress::-webkit-progress-bar {
-        background: #EDF1D3;
-    }
-
-    & .__progress::-webkit-progress-value {
-        background: #A7B723;
-    }
-}
-
-.--electric {
-    background-color: #F9CF30;
-
-    & .--colored {
-        color: #F9CF30;
-    }
-
-    & .__progress::-webkit-progress-bar {
-        background: #FEF5D6;
-    }
-
-    & .__progress::-webkit-progress-value {
-        background: #F9CF30;
-    }
-}
-
-.--ghost {
-    background-color: #70559B;
-
-    & .--colored {
-        color: #70559B;
-    }
-
-    & .__progress::-webkit-progress-bar {
-        background: #E8E4F0;
-    }
-
-    & .__progress::-webkit-progress-value {
-        background: #70559B;
-    }
-}
-
-.--normal {
-    background-color: #AAA67F;
-
-    & .--colored {
-        color: #AAA67F;
-    }
-
-    & .__progress::-webkit-progress-bar {
-        background: #EEEDE5;
-    }
-
-    & .__progress::-webkit-progress-value {
-        background: #AAA67F;
-    }
-}
-
-.--psychic {
-    background-color: #FB5584;
-
-    & .--colored {
-        color: #FB5584;
-    }
-
-    & .__progress::-webkit-progress-bar {
-        background: #FEDDE6;
-    }
-
-    & .__progress::-webkit-progress-value {
-        background: #FB5584;
-    }
-}
-
-.--steel {
-    background-color: #B7B9D0;
-
-    & .--colored {
-        color: #B7B9D0;
-    }
-
-    & .__progress::-webkit-progress-bar {
-        background: #F2F2F7;
-    }
-
-    & .__progress::-webkit-progress-value {
-        background: #B7B9D0;
-    }
-}
-
-.--poison {
-    background-color: #A43E9E;
-
-    & .--colored {
-        color: #A43E9E;
-    }
-
-    & .__progress::-webkit-progress-bar {
-        background: #f9eff8;
-    }
-
-    & .__progress::-webkit-progress-value {
-        background: #A43E9E;
     }
 }

@@ -1,0 +1,223 @@
+.--grass {
+    background-color:#74CB48;
+
+    & .--colored {
+        color: #74CB48;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #E3F5DA;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #74CB48;
+    }
+}
+
+.--fire {
+    background-color:#F57D31;
+
+    & .--colored {
+        color: #F57D31;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #FDE5D6;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #F57D31;
+    }
+}
+
+.--water {
+    background-color: #6493EB;
+
+    & .--colored {
+        color: #6493EB;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #E0E9FB;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #6493EB;
+    }
+}
+
+.--bug {
+    background-color: #A7B723;
+
+    & .--colored {
+        color: #A7B723;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #EDF1D3;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #A7B723;
+    }
+}
+
+.--electric {
+    background-color: #F9CF30;
+
+    & .--colored {
+        color: #F9CF30;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #FEF5D6;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #F9CF30;
+    }
+}
+
+.--ghost {
+    background-color: #70559B;
+
+    & .--colored {
+        color: #70559B;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #E8E4F0;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #70559B;
+    }
+}
+
+.--normal {
+    background-color: #AAA67F;
+
+    & .--colored {
+        color: #AAA67F;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #EEEDE5;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #AAA67F;
+    }
+}
+
+.--psychic {
+    background-color: #FB5584;
+
+    & .--colored {
+        color: #FB5584;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #FEDDE6;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #FB5584;
+    }
+}
+
+.--steel {
+    background-color: #B7B9D0;
+
+    & .--colored {
+        color: #B7B9D0;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #F2F2F7;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #B7B9D0;
+    }
+}
+
+.--poison {
+    background-color: #A43E9E;
+
+    & .--colored {
+        color: #A43E9E;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #f9eff8;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #A43E9E;
+    }
+}
+
+.--flying {
+    background-color: #A891EC;
+
+    & .--colored {
+        color: #A891EC;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #f2f0fa;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #A891EC;
+    }
+}
+
+.--ground {
+    background-color: #E9CA55;
+
+    & .--colored {
+        color: #E9CA55;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #f7f5ee;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #E9CA55;
+    }
+}
+
+.--fairy {
+    background-color: #FAACFF;
+
+    & .--colored {
+        color: #FAACFF;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #f9f2f9;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #FAACFF;
+    }
+}
+
+.--fighting {
+    background-color: #A65445;
+
+    & .--colored {
+        color: #A65445;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #f9f2f0;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #A65445;
+    }
+}

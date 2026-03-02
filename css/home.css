@@ -71,7 +71,7 @@ html {
 
 .poke-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, clamp(7.5rem, 25vw, 20rem));
+    grid-template-columns: repeat(auto-fit, clamp(6.5rem, 25vw, 20rem));
     justify-content: center;
     gap: 1rem;
     

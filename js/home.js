@@ -30,10 +30,16 @@ async function loadMore(page = "https://pokeapi.co/api/v2/pokemon") {
     
         // observer.observe(document.querySelector("li:last-child"));
     } else {
-        pokeList.innerHTML += characters.sort((a, b) => a.name.localeCompare(b.name))
-            .map(character => {
-                return useFormat(character)
-            }).join(" ");
+        characters.sort((a, b) => a.name.localeCompare(b.name))
+            for (let i = (currentPage * 20) - 20; i < currentPage * 20; i++) {
+                pokeList.innerHTML += useFormat(characters[i]);
+                
+                
+            }
+        // pokeList.innerHTML += characters.sort((a, b) => a.name.localeCompare(b.name))
+        //     .map(character => {
+        //         return useFormat(character)
+        //     }).join(" ");
     }
 
     mainDOM.innerHTML += `
@@ -82,14 +88,20 @@ async function loadMore(page = "https://pokeapi.co/api/v2/pokemon") {
         </nav>
     `;
     document.querySelector("#prevBtn").addEventListener("click", () => {
-        // mainDOM.innerHTML = "";
         currentPage--
-        loadMore(data.previous);
+        if(sortByNum) {
+            loadMore(data.previous);
+        } else {
+            loadMore("https://pokeapi.co/api/v2/pokemon/?limit=1350")
+        }
     });
     document.querySelector("#nextBtn").addEventListener("click", () => {
-        // mainDOM.innerHTML = "";
         currentPage++
-        loadMore(data.next);
+        if(sortByNum) {
+            loadMore(data.next);
+        } else {
+            loadMore("https://pokeapi.co/api/v2/pokemon/?limit=1350")
+        }
     });
 }
 

@@ -27,6 +27,10 @@ html {
         transform: scale(1.5) translateX(.25rem);
     } 
 
+    & .heading {
+        text-decoration: none;
+    }
+
     & .header-nav {
         grid-row: 2;
         grid-column: span 3;

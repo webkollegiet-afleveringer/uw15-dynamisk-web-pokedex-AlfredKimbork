@@ -77,7 +77,6 @@ html {
     
     list-style: none;
 
-    min-height: 95dvh;
     background-color: #FFF;
     border-radius: 1rem;
 
@@ -127,4 +126,21 @@ html {
 
 .card-img {
     width: 75%;
+}
+
+.page-nav {
+    margin-block: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    & .page {
+        transform: translateY(-25%) scale(1.5);
+        }
+
+    & .--btn {
+        transform: scale(1.5);
+        cursor:pointer;
+    }
 }

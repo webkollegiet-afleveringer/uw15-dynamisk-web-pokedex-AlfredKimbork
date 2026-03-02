@@ -1,6 +1,10 @@
 @import url(./base.css);
 @import url(./pokeTypes.css);
 
+#main {
+    padding: 1rem;
+}
+
 .__header {
     display: flex;
     gap: 1rem;
@@ -39,7 +43,7 @@
     background: #FFF;
 
     padding: 7rem 2.5rem 2.5rem;
-    margin-inline: max(1rem, (100% - 40rem) / 2);
+    margin: max(1rem, (100% - 40rem) / 2);
 
     border-radius: 1rem;
 }

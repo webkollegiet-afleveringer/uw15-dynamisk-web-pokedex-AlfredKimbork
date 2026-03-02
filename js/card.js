@@ -5,6 +5,8 @@ const params = new URLSearchParams(url.search);
 const id = JSON.parse(params.get("id"));
 
 const data = await useFetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+console.log(data.species.url);
+
 const species = await useFetch(data.species.url)
 
 const mainDOM = document.querySelector("#main");

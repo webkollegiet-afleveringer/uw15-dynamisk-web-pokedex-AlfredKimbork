@@ -221,3 +221,67 @@
         background: #A65445;
     }
 }
+
+.--dragon {
+    background-color: #745CCD;
+
+    & .--colored {
+        color: #745CCD;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #f1eff8;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #745CCD;
+    }
+}
+
+.--dark {
+    background-color: #8D6A56;
+
+    & .--colored {
+        color: #8D6A56;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #f7efea;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #8D6A56;
+    }
+}
+
+.--rock {
+    background-color: #CDBB71;
+
+    & .--colored {
+        color: #CDBB71;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #faf7ee;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #CDBB71;
+    }
+}
+
+.--ice {
+    background-color: #A4DDEE;
+
+    & .--colored {
+        color: #A4DDEE;
+    }
+
+    & .__progress::-webkit-progress-bar {
+        background: #f3fafc;
+    }
+
+    & .__progress::-webkit-progress-value {
+        background: #A4DDEE;
+    }
+}

@@ -5,29 +5,10 @@ const params = new URLSearchParams(url.search);
 const id = JSON.parse(params.get("id"));
 
 const data = await useFetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
-console.log(data.species.url);
-
 const species = await useFetch(data.species.url)
+console.log(species);
 
 const mainDOM = document.querySelector("#main");
-let idFormat;
-switch (JSON.stringify(id).length) {
-    case 1:
-        idFormat = `#000${id}`;
-        break;
-    case 2:
-        idFormat = `#00${id}`;
-        break;
-    case 3:
-        idFormat = `#0${id}`;
-        break;
-    case 4:
-        idFormat = `#${id}`;
-        break;
-    default:
-        idFormat = `#????`;
-        break;
-}
 
 mainDOM.classList.add(`--${data.types[0].type.name}`)
 const pokeCard = document.createElement("div");
@@ -58,7 +39,7 @@ mainDOM.innerHTML = `
             </svg>
         </a>
         <h1 class="--white --capatalize">${data.name}</h1>
-        <div class="--white __id">${idFormat}</div>
+        <div class="--white __id">#${JSON.stringify(id).padStart(4, "0")}</div>
     </section>
     <img class="__img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png" alt="${data.name}">
 `;
@@ -155,14 +136,12 @@ pokeCard.innerHTML += `
             <h3 class="--light --center">Moves</h3>
         </li>
     </ul>
-    <p>${species.flavor_text_entries[0].flavor_text}</p>
+    <p>${species.flavor_text_entries.map(entry => {if(entry.language.name == "en") return entry.flavor_text}).filter(flavorText => flavorText !== undefined)[0]}</p>
     <table class="__stats --flex">
         <caption class="--colored __heading">Base Stats</caption>
         <tbody class="__body --grid">
             ${data.stats.map(stat => {
-                console.log(stat)
                 let statName
-                // let statVal
                 switch (stat.stat.name) {
                     case "hp":
                         statName = "HP"

@@ -136,7 +136,7 @@ pokeCard.innerHTML += `
             <h3 class="--light --center">Moves</h3>
         </li>
     </ul>
-    <p>${species.flavor_text_entries.filter(flavorText => flavorText.language.name === "en")[0].flavor_text}</p>
+    <p>${species.flavor_text_entries.filter(entry => entry.language.name === "en")[0].flavor_text}</p>
     <table class="__stats --flex">
         <caption class="--colored __heading">Base Stats</caption>
         <tbody class="__body --grid">

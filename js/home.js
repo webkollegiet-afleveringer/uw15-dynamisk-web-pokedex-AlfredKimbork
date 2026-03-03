@@ -7,19 +7,21 @@ let batchSize = 40
 let sortByNum = true;
 let currentPage = 1;
 let pokeList
+// mainDOM.innerHTML = `<ul class="poke-list"></ul>`;
+// pokeList = document.querySelector(".poke-list");
 
 async function loadMore(page = `https://pokeapi.co/api/v2/pokemon/?limit=${batchSize}`) {
     const data = await useFetch(page);
     const characters = data.results;
     // const observer = new IntersectionObserver(entries => {
-    //     if (entries[0].isIntersecting) {
-    //         loadMore(data.next);
-    //         observer.unobserve(entries[0].target);
-    //     }
-    // }, {
-    //     rootMargin: "0 0 1000px 0",
-    // });
-
+        //     if (entries[0].isIntersecting) {
+            //         loadMore(data.next);
+            //         observer.unobserve(entries[0].target);
+            //     }
+            // }, {
+                //     rootMargin: "0 0 1000px 0",
+                // });
+                
     mainDOM.innerHTML = `<ul class="poke-list"></ul>`;
     pokeList = document.querySelector(".poke-list");
 
@@ -138,6 +140,8 @@ headerDOM.innerHTML = `
 const sortBtn = document.querySelector("#sort");
 
 document.querySelector("#search").addEventListener("input", async event => {
+    pokeList = document.querySelector(".poke-list");
+
     if(event.target.value.length !== 0) {
         const searched = await useFetch(`https://pokeapi.co/api/v2/pokemon/${event.target.value}/`)
         pokeList.innerHTML = useFormat(searched)

@@ -160,6 +160,7 @@ pokeCard.innerHTML += `
         <caption class="--colored __heading">Base Stats</caption>
         <tbody class="__body --grid">
             ${data.stats.map(stat => {
+                console.log(stat)
                 let statName
                 // let statVal
                 switch (stat.stat.name) {

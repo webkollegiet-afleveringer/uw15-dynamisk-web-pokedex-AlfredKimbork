@@ -1,10 +1,9 @@
 export const useFormat = character => {
     let id 
-    // let idFormat;
-
+        
     if(character.url) id = character.url.slice(0, -1).split("/").pop(-1);
         else id = JSON.stringify(character.id)
-
+    
     return `    
         <li>
             <a class="poke-card" href="card.html?id=${id}">

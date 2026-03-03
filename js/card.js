@@ -161,7 +161,7 @@ pokeCard.innerHTML += `
         <tbody class="__body --grid">
             ${data.stats.map(stat => {
                 let statName
-                let statVal
+                // let statVal
                 switch (stat.stat.name) {
                     case "hp":
                         statName = "HP"
@@ -184,24 +184,11 @@ pokeCard.innerHTML += `
                     default:
                         break;
                 }
-                switch (JSON.stringify(stat.base_stat).length) {
-                    case 1:
-                        statVal = `00${stat.base_stat}`
-                        break;
-                    case 2:
-                        statVal = `0${stat.base_stat}`
-                        break;
-                    case 3:
-                        statVal = `${stat.base_stat}`
-                        break;
-                    default:
-                        break;
-                }
                 return `
                     <tr class="__data">
                         <th class="--colored __stat">${statName}</th>
                         <td>
-                            <label class="__stat-val">${statVal}</label>
+                            <label class="__stat-val">${JSON.stringify(stat.base_stat).padStart(3, "0")}</label>
                         </td>
                         <td>
                             <progress class="__progress" value="${stat.base_stat}" max="230"">

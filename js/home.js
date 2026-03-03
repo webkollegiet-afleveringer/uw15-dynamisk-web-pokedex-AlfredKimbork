@@ -3,7 +3,7 @@ import { useFormat } from "./useFormat.js";
 
 const headerDOM = document.querySelector("#header");
 const mainDOM = document.querySelector("#main");
-const batchSize = 40
+let batchSize = 40
 let sortByNum = true;
 let currentPage = 1;
 let pokeList

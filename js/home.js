@@ -3,11 +3,12 @@ import { useFormat } from "./useFormat.js";
 
 const headerDOM = document.querySelector("#header");
 const mainDOM = document.querySelector("#main");
+const batchSize = 40
 let sortByNum = true;
 let currentPage = 1;
 let pokeList
 
-async function loadMore(page = "https://pokeapi.co/api/v2/pokemon") {
+async function loadMore(page = `https://pokeapi.co/api/v2/pokemon/?limit=${batchSize}`) {
     const data = await useFetch(page);
     const characters = data.results;
     // const observer = new IntersectionObserver(entries => {
@@ -31,7 +32,7 @@ async function loadMore(page = "https://pokeapi.co/api/v2/pokemon") {
         // observer.observe(document.querySelector("li:last-child"));
     } else {
         characters.sort((a, b) => a.name.localeCompare(b.name))
-            for (let i = (currentPage * 20) - 20; i < currentPage * 20; i++) {
+            for (let i = (currentPage * batchSize) - batchSize; i < currentPage * batchSize; i++) {
                 pokeList.innerHTML += useFormat(characters[i]);
                 
                 
@@ -64,7 +65,7 @@ async function loadMore(page = "https://pokeapi.co/api/v2/pokemon") {
                     </defs>
                 </svg>
             </button>
-            <span class="page --white">${currentPage}</span>
+            <span class="page --white">${currentPage} / ${Math.ceil(data.count / batchSize)}</span>
             <button class="next-btn --btn --clear" id="nextBtn">
                 <svg width="15" height="20" viewBox="0 0 15 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g filter="url(#filter0_d_1044_467)">
@@ -88,19 +89,25 @@ async function loadMore(page = "https://pokeapi.co/api/v2/pokemon") {
         </nav>
     `;
     document.querySelector("#prevBtn").addEventListener("click", () => {
-        currentPage--
-        if(sortByNum) {
-            loadMore(data.previous);
-        } else {
-            loadMore("https://pokeapi.co/api/v2/pokemon/?limit=1350")
+        if(currentPage > 1) {
+            currentPage--
+            if(sortByNum) {
+                loadMore(`https://pokeapi.co/api/v2/pokemon/?limit=${batchSize}&offset=${(currentPage * batchSize) - batchSize}`);
+            } else {
+                loadMore("https://pokeapi.co/api/v2/pokemon/?limit=1350")
+            }
         }
     });
+
     document.querySelector("#nextBtn").addEventListener("click", () => {
-        currentPage++
-        if(sortByNum) {
-            loadMore(data.next);
-        } else {
-            loadMore("https://pokeapi.co/api/v2/pokemon/?limit=1350")
+        if(Math.ceil(data.count / batchSize)) {
+
+            currentPage++
+            if(sortByNum) {
+                loadMore(`https://pokeapi.co/api/v2/pokemon/?offset=${(currentPage * batchSize) - batchSize}&limit=${batchSize}`);
+            } else {
+                loadMore("https://pokeapi.co/api/v2/pokemon/?limit=1350")
+            }
         }
     });
 }
@@ -141,6 +148,7 @@ document.querySelector("#search").addEventListener("input", async event => {
 });
 
 sortBtn.addEventListener("click", () => {
+    currentPage = 1
     if(sortByNum) {
         pokeList.innerHTML = ""
         sortBtn.innerHTML = `

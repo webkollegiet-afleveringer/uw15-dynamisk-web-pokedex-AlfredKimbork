@@ -2,13 +2,20 @@ import { useFetch } from "./useFetch.js";
 
 const url = new URL(window.location.href);
 const params = new URLSearchParams(url.search);
-const id = JSON.parse(params.get("id"));
+const id = params.get("id");
+const page = params.get("page");
 
-const data = await useFetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
-const species = await useFetch(data.species.url)
-console.log(species);
-
+const data = await useFetch(`https://swapi.dev/api/${page}/${id}/?format=json`)
+console.log(data)
 const mainDOM = document.querySelector("#main");
+mainDOM.innerHTML = `
+    ${data.name}
+    ${data.height}
+    ${data.mass}
+    ${data.gender}
+    ${data.gender}
+    <img class="card-img" src="../assets/img/${id}.jpg" alt="${data.name}">
+`;
 
 mainDOM.classList.add(`--${data.types[0].type.name}`)
 const pokeCard = document.createElement("div");
@@ -39,7 +46,6 @@ mainDOM.innerHTML = `
             </svg>
         </a>
         <h1 class="--white --capatalize">${data.name}</h1>
-        <div class="--white __id">#${JSON.stringify(id).padStart(4, "0")}</div>
     </section>
     <img class="__img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png" alt="${data.name}">
 `;

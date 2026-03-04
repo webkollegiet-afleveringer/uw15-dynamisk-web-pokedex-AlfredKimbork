@@ -3,25 +3,14 @@ import { useFormat } from "./useFormat.js";
 
 const headerDOM = document.querySelector("#header");
 const mainDOM = document.querySelector("#main");
-let batchSize = 40
 let sortByNum = true;
 let currentPage = 1;
 let pokeList
-// mainDOM.innerHTML = `<ul class="poke-list"></ul>`;
-// pokeList = document.querySelector(".poke-list");
 
-async function loadMore(page = `https://pokeapi.co/api/v2/pokemon/?limit=${batchSize}`) {
+async function loadMore(page = `https://swapi.dev/api/people/?format=json`) {
     const data = await useFetch(page);
+    console.log(data)
     const characters = data.results;
-    // const observer = new IntersectionObserver(entries => {
-        //     if (entries[0].isIntersecting) {
-            //         loadMore(data.next);
-            //         observer.unobserve(entries[0].target);
-            //     }
-            // }, {
-                //     rootMargin: "0 0 1000px 0",
-                // });
-                
     mainDOM.innerHTML = `<ul class="poke-list"></ul>`;
     pokeList = document.querySelector(".poke-list");
 
@@ -31,7 +20,6 @@ async function loadMore(page = `https://pokeapi.co/api/v2/pokemon/?limit=${batch
                 return useFormat(character)
             }).join(" ");
     
-        // observer.observe(document.querySelector("li:last-child"));
     } else {
         characters.sort((a, b) => a.name.localeCompare(b.name))
             for (let i = (currentPage * batchSize) - batchSize; i < currentPage * batchSize; i++) {
@@ -39,10 +27,6 @@ async function loadMore(page = `https://pokeapi.co/api/v2/pokemon/?limit=${batch
                 
                 
             }
-        // pokeList.innerHTML += characters.sort((a, b) => a.name.localeCompare(b.name))
-        //     .map(character => {
-        //         return useFormat(character)
-        //     }).join(" ");
     }
 
     mainDOM.innerHTML += `
@@ -67,7 +51,7 @@ async function loadMore(page = `https://pokeapi.co/api/v2/pokemon/?limit=${batch
                     </defs>
                 </svg>
             </button>
-            <span class="page --white">${currentPage} / ${Math.ceil(data.count / batchSize)}</span>
+            <span class="page --white">${currentPage} / ${Math.ceil(data.count / 10)}</span>
             <button class="next-btn --btn --clear" id="nextBtn">
                 <svg width="15" height="20" viewBox="0 0 15 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g filter="url(#filter0_d_1044_467)">
@@ -93,23 +77,14 @@ async function loadMore(page = `https://pokeapi.co/api/v2/pokemon/?limit=${batch
     document.querySelector("#prevBtn").addEventListener("click", () => {
         if(currentPage > 1) {
             currentPage--
-            if(sortByNum) {
-                loadMore(`https://pokeapi.co/api/v2/pokemon/?limit=${batchSize}&offset=${(currentPage * batchSize) - batchSize}`);
-            } else {
-                loadMore("https://pokeapi.co/api/v2/pokemon/?limit=1350")
-            }
+            loadMore(data.previous);
         }
     });
 
     document.querySelector("#nextBtn").addEventListener("click", () => {
-        if(Math.ceil(data.count / batchSize)) {
-
+        if(currentPage < Math.ceil(data.count / 10)) {
             currentPage++
-            if(sortByNum) {
-                loadMore(`https://pokeapi.co/api/v2/pokemon/?offset=${(currentPage * batchSize) - batchSize}&limit=${batchSize}`);
-            } else {
-                loadMore("https://pokeapi.co/api/v2/pokemon/?limit=1350")
-            }
+            loadMore(data.next);
         }
     });
 }
@@ -137,41 +112,41 @@ headerDOM.innerHTML = `
     </nav>
 `;
 
-const sortBtn = document.querySelector("#sort");
+// const sortBtn = document.querySelector("#sort");
 
-document.querySelector("#search").addEventListener("input", async event => {
-    pokeList = document.querySelector(".poke-list");
+// document.querySelector("#search").addEventListener("input", async event => {
+//     pokeList = document.querySelector(".poke-list");
 
-    if(event.target.value.length !== 0) {
-        const searched = await useFetch(`https://pokeapi.co/api/v2/pokemon/${event.target.value}/`)
-        pokeList.innerHTML = useFormat(searched)
-    } else {
-        pokeList.innerHTML = ""
-        loadMore();
-    }
-});
+//     if(event.target.value.length !== 0) {
+//         const searched = await useFetch(`https://pokeapi.co/api/v2/pokemon/${event.target.value}/`)
+//         pokeList.innerHTML = useFormat(searched)
+//     } else {
+//         pokeList.innerHTML = ""
+//         loadMore();
+//     }
+// });
 
-sortBtn.addEventListener("click", () => {
-    currentPage = 1
-    if(sortByNum) {
-        pokeList.innerHTML = ""
-        sortBtn.innerHTML = `
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0.5 10C0.355556 10 0.236111 9.95278 0.141667 9.85833C0.0472223 9.76389 0 9.64444 0 9.5C0 9.35556 0.0472223 9.23611 0.141667 9.14167C0.236111 9.04722 0.355556 9 0.5 9H8.83333C8.97778 9 9.09722 9.04722 9.19167 9.14167C9.28611 9.23611 9.33333 9.35556 9.33333 9.5C9.33333 9.64444 9.28611 9.76389 9.19167 9.85833C9.09722 9.95278 8.97778 10 8.83333 10H0.5ZM3.21667 4.6H6.11667L4.7 0.9H4.63333L3.21667 4.6ZM1.95 7.33333C1.77222 7.33333 1.65556 7.275 1.6 7.15833C1.54444 7.04167 1.54444 6.9 1.6 6.73333L3.93333 0.516667C3.98889 0.372222 4.08611 0.25 4.225 0.15C4.36389 0.0499999 4.51111 0 4.66667 0C4.82222 0 4.96944 0.0499999 5.10833 0.15C5.24722 0.25 5.34444 0.372222 5.4 0.516667L7.73333 6.73333C7.78889 6.9 7.78889 7.04167 7.73333 7.15833C7.67778 7.275 7.56111 7.33333 7.38333 7.33333C7.29444 7.33333 7.21389 7.30833 7.14167 7.25833C7.06944 7.20833 7.02222 7.15 7 7.08333L6.35 5.35H2.96667L2.31667 7.08333C2.29444 7.15 2.24722 7.20833 2.175 7.25833C2.10278 7.30833 2.02778 7.33333 1.95 7.33333Z" fill="#DC0A2D"/>
-            </svg>
-        `;
-        sortByNum = false
-        loadMore("https://pokeapi.co/api/v2/pokemon/?limit=1350")
-    } else {
-        pokeList.innerHTML = ""
-        sortBtn.innerHTML = `
-            <svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2.31975 10.6667C2.1642 10.6667 2.03642 10.6056 1.93642 10.4833C1.83642 10.3611 1.80864 10.2222 1.85309 10.0667L2.41975 7.83333H0.503086C0.347531 7.83333 0.216975 7.76944 0.11142 7.64167C0.00586422 7.51389 -0.0246914 7.37222 0.0197531 7.21667C0.0419753 7.10556 0.0975308 7.01389 0.18642 6.94167C0.275309 6.86944 0.380864 6.83333 0.503086 6.83333H2.66975L3.41975 3.83333H1.16975C1.0142 3.83333 0.883642 3.76944 0.778087 3.64167C0.672531 3.51389 0.641975 3.37222 0.68642 3.21667C0.708642 3.10556 0.764197 3.01389 0.853086 2.94167C0.941975 2.86944 1.04753 2.83333 1.16975 2.83333H3.66975L4.28642 0.366667C4.30864 0.255556 4.36142 0.166667 4.44475 0.1C4.52809 0.0333334 4.62531 0 4.73642 0C4.89198 0 5.01698 0.0611112 5.11142 0.183333C5.20586 0.305556 5.23642 0.444445 5.20309 0.6L4.65309 2.83333H7.66975L8.28642 0.366667C8.30864 0.255556 8.36142 0.166667 8.44475 0.1C8.52809 0.0333334 8.62531 0 8.73642 0C8.89197 0 9.01697 0.0611112 9.11142 0.183333C9.20586 0.305556 9.23642 0.444445 9.20309 0.6L8.65309 2.83333H10.5698C10.7253 2.83333 10.8559 2.89722 10.9614 3.025C11.067 3.15278 11.0975 3.29444 11.0531 3.45C11.0309 3.56111 10.9753 3.65278 10.8864 3.725C10.7975 3.79722 10.692 3.83333 10.5698 3.83333H8.40309L7.65309 6.83333H9.90309C10.0586 6.83333 10.1892 6.89722 10.2948 7.025C10.4003 7.15278 10.4309 7.29444 10.3864 7.45C10.3642 7.56111 10.3086 7.65278 10.2198 7.725C10.1309 7.79722 10.0253 7.83333 9.90309 7.83333H7.40309L6.78642 10.3C6.7642 10.3889 6.71697 10.4722 6.64475 10.55C6.57253 10.6278 6.4642 10.6667 6.31975 10.6667C6.1642 10.6667 6.03642 10.6056 5.93642 10.4833C5.83642 10.3611 5.80864 10.2222 5.85309 10.0667L6.41975 7.83333H3.40309L2.78642 10.3C2.7642 10.3889 2.71698 10.4722 2.64475 10.55C2.57253 10.6278 2.4642 10.6667 2.31975 10.6667ZM3.65309 6.83333H6.66975L7.41975 3.83333H4.40309L3.65309 6.83333Z" fill="#DC0A2D"/>
-            </svg>
-        `;
-        sortByNum = true
-        loadMore()
-    }
-})
+// sortBtn.addEventListener("click", () => {
+//     currentPage = 1
+//     if(sortByNum) {
+//         pokeList.innerHTML = ""
+//         sortBtn.innerHTML = `
+//             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+//                 <path d="M0.5 10C0.355556 10 0.236111 9.95278 0.141667 9.85833C0.0472223 9.76389 0 9.64444 0 9.5C0 9.35556 0.0472223 9.23611 0.141667 9.14167C0.236111 9.04722 0.355556 9 0.5 9H8.83333C8.97778 9 9.09722 9.04722 9.19167 9.14167C9.28611 9.23611 9.33333 9.35556 9.33333 9.5C9.33333 9.64444 9.28611 9.76389 9.19167 9.85833C9.09722 9.95278 8.97778 10 8.83333 10H0.5ZM3.21667 4.6H6.11667L4.7 0.9H4.63333L3.21667 4.6ZM1.95 7.33333C1.77222 7.33333 1.65556 7.275 1.6 7.15833C1.54444 7.04167 1.54444 6.9 1.6 6.73333L3.93333 0.516667C3.98889 0.372222 4.08611 0.25 4.225 0.15C4.36389 0.0499999 4.51111 0 4.66667 0C4.82222 0 4.96944 0.0499999 5.10833 0.15C5.24722 0.25 5.34444 0.372222 5.4 0.516667L7.73333 6.73333C7.78889 6.9 7.78889 7.04167 7.73333 7.15833C7.67778 7.275 7.56111 7.33333 7.38333 7.33333C7.29444 7.33333 7.21389 7.30833 7.14167 7.25833C7.06944 7.20833 7.02222 7.15 7 7.08333L6.35 5.35H2.96667L2.31667 7.08333C2.29444 7.15 2.24722 7.20833 2.175 7.25833C2.10278 7.30833 2.02778 7.33333 1.95 7.33333Z" fill="#DC0A2D"/>
+//             </svg>
+//         `;
+//         sortByNum = false
+//         loadMore("https://pokeapi.co/api/v2/pokemon/?limit=1350")
+//     } else {
+//         pokeList.innerHTML = ""
+//         sortBtn.innerHTML = `
+//             <svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+//                 <path d="M2.31975 10.6667C2.1642 10.6667 2.03642 10.6056 1.93642 10.4833C1.83642 10.3611 1.80864 10.2222 1.85309 10.0667L2.41975 7.83333H0.503086C0.347531 7.83333 0.216975 7.76944 0.11142 7.64167C0.00586422 7.51389 -0.0246914 7.37222 0.0197531 7.21667C0.0419753 7.10556 0.0975308 7.01389 0.18642 6.94167C0.275309 6.86944 0.380864 6.83333 0.503086 6.83333H2.66975L3.41975 3.83333H1.16975C1.0142 3.83333 0.883642 3.76944 0.778087 3.64167C0.672531 3.51389 0.641975 3.37222 0.68642 3.21667C0.708642 3.10556 0.764197 3.01389 0.853086 2.94167C0.941975 2.86944 1.04753 2.83333 1.16975 2.83333H3.66975L4.28642 0.366667C4.30864 0.255556 4.36142 0.166667 4.44475 0.1C4.52809 0.0333334 4.62531 0 4.73642 0C4.89198 0 5.01698 0.0611112 5.11142 0.183333C5.20586 0.305556 5.23642 0.444445 5.20309 0.6L4.65309 2.83333H7.66975L8.28642 0.366667C8.30864 0.255556 8.36142 0.166667 8.44475 0.1C8.52809 0.0333334 8.62531 0 8.73642 0C8.89197 0 9.01697 0.0611112 9.11142 0.183333C9.20586 0.305556 9.23642 0.444445 9.20309 0.6L8.65309 2.83333H10.5698C10.7253 2.83333 10.8559 2.89722 10.9614 3.025C11.067 3.15278 11.0975 3.29444 11.0531 3.45C11.0309 3.56111 10.9753 3.65278 10.8864 3.725C10.7975 3.79722 10.692 3.83333 10.5698 3.83333H8.40309L7.65309 6.83333H9.90309C10.0586 6.83333 10.1892 6.89722 10.2948 7.025C10.4003 7.15278 10.4309 7.29444 10.3864 7.45C10.3642 7.56111 10.3086 7.65278 10.2198 7.725C10.1309 7.79722 10.0253 7.83333 9.90309 7.83333H7.40309L6.78642 10.3C6.7642 10.3889 6.71697 10.4722 6.64475 10.55C6.57253 10.6278 6.4642 10.6667 6.31975 10.6667C6.1642 10.6667 6.03642 10.6056 5.93642 10.4833C5.83642 10.3611 5.80864 10.2222 5.85309 10.0667L6.41975 7.83333H3.40309L2.78642 10.3C2.7642 10.3889 2.71698 10.4722 2.64475 10.55C2.57253 10.6278 2.4642 10.6667 2.31975 10.6667ZM3.65309 6.83333H6.66975L7.41975 3.83333H4.40309L3.65309 6.83333Z" fill="#DC0A2D"/>
+//             </svg>
+//         `;
+//         sortByNum = true
+//         loadMore()
+//     }
+// })
 
 loadMore();

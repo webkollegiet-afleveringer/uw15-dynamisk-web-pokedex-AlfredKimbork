@@ -6,12 +6,10 @@ const id = params.get("id");
 const page = params.get("page");
 
 const data = await useFetch(`https://swapi.dev/api/${page}/${id}/?format=json`)
-console.log(data)
-let filmData = await Promise.all(data.films.map(film => useFetch(film)))
-let shipData = await Promise.all(data.starships.map(ship => useFetch(ship)))
-console.log(shipData)
-let vehicleData = await Promise.all(data.vehicles.map(vehicle => useFetch(vehicle)))
-console.log(vehicleData)
+
+const filmData = await Promise.all(data.films.map(film => useFetch(film)))
+const shipData = await Promise.all(data.starships.map(ship => useFetch(ship)))
+const vehicleData = await Promise.all(data.vehicles.map(vehicle => useFetch(vehicle)))
 
 const mainDOM = document.querySelector("#main");
 

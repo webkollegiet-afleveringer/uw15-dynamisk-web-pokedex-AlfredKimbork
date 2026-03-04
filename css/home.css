@@ -13,39 +13,18 @@ html {
 
     padding: 1rem;
     gap: 1rem;
-    display: grid;
-    align-items: center;
-    grid-template-columns: 2.25rem 1fr 3.75rem;
+    display: flex;
+    flex-direction: column;
 
-    & .icon, & .heading {
-        grid-row: 1;
-        color: #FFF;
-        font-size: 2.5rem;
-    }
-
-    & .icon {
-        transform: scale(1.5) translateX(.25rem);
-    } 
 
     & .heading {
+        color: #FFF;
+        font-size: 2.5rem;
         text-decoration: none;
     }
 
-    & .header-nav {
-        grid-row: 2;
-        grid-column: span 3;
-        display: grid;
-        grid-template-columns: subgrid;
-        gap: 2rem;
-
-        & * {
-            border-radius: 2rem;
-            border: none;
-        }
-
         & .search-container {
             position: relative;
-            grid-column: span 2;
 
             & .search-label {
                 position: absolute;
@@ -61,19 +40,9 @@ html {
                 font-size: 1.25rem;
             }
         }
-
-        & .sort {
-            background: #FFF;
-            height: 3.25rem;
-            width: 3.25rem;
-            & svg {
-                transform: scale(1.5);
-            }
-        }
-    }
 }
 
-.poke-list {
+.__list {
     display: grid;
     grid-template-columns: repeat(auto-fit, clamp(10rem, 25vw, 20rem));
     justify-content: center;

@@ -5,17 +5,17 @@ const headerDOM = document.querySelector("#header");
 const mainDOM = document.querySelector("#main");
 let sortByNum = true;
 let currentPage = 1;
-let pokeList
+let list
 
 async function loadMore(page = `https://swapi.dev/api/people/?format=json`) {
     const data = await useFetch(page);
     console.log(data)
     const characters = data.results;
-    mainDOM.innerHTML = `<ul class="poke-list"></ul>`;
-    pokeList = document.querySelector(".poke-list");
+    mainDOM.innerHTML = `<ul class="__list"></ul>`;
+    list = document.querySelector(".__list");
 
     if(sortByNum) {
-        pokeList.innerHTML += characters
+        list.innerHTML += characters
             .map(character => {
                 return useFormat(character)
             }).join(" ");
@@ -23,7 +23,7 @@ async function loadMore(page = `https://swapi.dev/api/people/?format=json`) {
     } else {
         characters.sort((a, b) => a.name.localeCompare(b.name))
             for (let i = (currentPage * batchSize) - batchSize; i < currentPage * batchSize; i++) {
-                pokeList.innerHTML += useFormat(characters[i]);
+                list.innerHTML += useFormat(characters[i]);
                 
                 
             }
@@ -90,11 +90,7 @@ async function loadMore(page = `https://swapi.dev/api/people/?format=json`) {
 }
 
 headerDOM.innerHTML = `
-    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14.8572 12C14.8572 13.578 13.578 14.8571 12.0001 14.8571C10.4221 14.8571 9.14292 13.578 9.14292 12C9.14292 10.422 10.4221 9.14286 12.0001 9.14286C13.578 9.14286 14.8572 10.422 14.8572 12Z" fill="white"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 24C18.0454 24 23.0467 19.5296 23.8785 13.7143H16.8503C16.1443 15.7118 14.2393 17.1429 12.0001 17.1429C9.76083 17.1429 7.85584 15.7118 7.14984 13.7143H0.121582C0.953404 19.5296 5.95468 24 12.0001 24ZM7.14984 10.2857H0.121582C0.953404 4.47035 5.95468 0 12.0001 0C18.0454 0 23.0467 4.47035 23.8785 10.2857H16.8503C16.1443 8.28824 14.2393 6.85714 12.0001 6.85714C9.76083 6.85714 7.85584 8.28824 7.14984 10.2857ZM14.8572 12C14.8572 13.578 13.578 14.8571 12.0001 14.8571C10.4221 14.8571 9.14292 13.578 9.14292 12C9.14292 10.422 10.4221 9.14286 12.0001 9.14286C13.578 9.14286 14.8572 10.422 14.8572 12Z" fill="white"/>
-    </svg>
-    <a href="index.html" role="heading" value="1" class="heading">Pokédex</a>
+    <a href="index.html" role="heading" value="1" class="heading">Star Regristry</a>
     <nav class="header-nav">
         <div class="search-container">
             <label class="search-label">
@@ -104,27 +100,23 @@ headerDOM.innerHTML = `
             </label>
             <input type="text" id="search" class="searchbar" placeholder="Search">
         </div>
-        <button class="sort" id="sort">
-            <svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2.31975 10.6667C2.1642 10.6667 2.03642 10.6056 1.93642 10.4833C1.83642 10.3611 1.80864 10.2222 1.85309 10.0667L2.41975 7.83333H0.503086C0.347531 7.83333 0.216975 7.76944 0.11142 7.64167C0.00586422 7.51389 -0.0246914 7.37222 0.0197531 7.21667C0.0419753 7.10556 0.0975308 7.01389 0.18642 6.94167C0.275309 6.86944 0.380864 6.83333 0.503086 6.83333H2.66975L3.41975 3.83333H1.16975C1.0142 3.83333 0.883642 3.76944 0.778087 3.64167C0.672531 3.51389 0.641975 3.37222 0.68642 3.21667C0.708642 3.10556 0.764197 3.01389 0.853086 2.94167C0.941975 2.86944 1.04753 2.83333 1.16975 2.83333H3.66975L4.28642 0.366667C4.30864 0.255556 4.36142 0.166667 4.44475 0.1C4.52809 0.0333334 4.62531 0 4.73642 0C4.89198 0 5.01698 0.0611112 5.11142 0.183333C5.20586 0.305556 5.23642 0.444445 5.20309 0.6L4.65309 2.83333H7.66975L8.28642 0.366667C8.30864 0.255556 8.36142 0.166667 8.44475 0.1C8.52809 0.0333334 8.62531 0 8.73642 0C8.89197 0 9.01697 0.0611112 9.11142 0.183333C9.20586 0.305556 9.23642 0.444445 9.20309 0.6L8.65309 2.83333H10.5698C10.7253 2.83333 10.8559 2.89722 10.9614 3.025C11.067 3.15278 11.0975 3.29444 11.0531 3.45C11.0309 3.56111 10.9753 3.65278 10.8864 3.725C10.7975 3.79722 10.692 3.83333 10.5698 3.83333H8.40309L7.65309 6.83333H9.90309C10.0586 6.83333 10.1892 6.89722 10.2948 7.025C10.4003 7.15278 10.4309 7.29444 10.3864 7.45C10.3642 7.56111 10.3086 7.65278 10.2198 7.725C10.1309 7.79722 10.0253 7.83333 9.90309 7.83333H7.40309L6.78642 10.3C6.7642 10.3889 6.71697 10.4722 6.64475 10.55C6.57253 10.6278 6.4642 10.6667 6.31975 10.6667C6.1642 10.6667 6.03642 10.6056 5.93642 10.4833C5.83642 10.3611 5.80864 10.2222 5.85309 10.0667L6.41975 7.83333H3.40309L2.78642 10.3C2.7642 10.3889 2.71698 10.4722 2.64475 10.55C2.57253 10.6278 2.4642 10.6667 2.31975 10.6667ZM3.65309 6.83333H6.66975L7.41975 3.83333H4.40309L3.65309 6.83333Z" fill="#DC0A2D"/>
-            </svg>
-        </button>
     </nav>
 `;
 
 // const sortBtn = document.querySelector("#sort");
 
-// document.querySelector("#search").addEventListener("input", async event => {
-//     pokeList = document.querySelector(".poke-list");
+document.querySelector("#search").addEventListener("input", async event => {
+    list = document.querySelector(".__list");
 
-//     if(event.target.value.length !== 0) {
-//         const searched = await useFetch(`https://pokeapi.co/api/v2/pokemon/${event.target.value}/`)
-//         pokeList.innerHTML = useFormat(searched)
-//     } else {
-//         pokeList.innerHTML = ""
-//         loadMore();
-//     }
-// });
+    if(event.target.value.length !== 0) {
+        list.innerHTML = "";
+        const searchedData = await useFetch(`https://swapi.dev/api/people/?search=${event.target.value}&format=json`);
+        searchedData.results.map(result => list.innerHTML += useFormat(result));
+    } else {
+        list.innerHTML = "";
+        loadMore();
+    }
+});
 
 // sortBtn.addEventListener("click", () => {
 //     currentPage = 1

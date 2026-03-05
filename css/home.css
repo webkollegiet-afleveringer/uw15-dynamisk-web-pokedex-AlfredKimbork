@@ -14,7 +14,6 @@
     background: linear-gradient(#171717 80%, #00000000 100%);
 
     & .heading {
-        color: #FFE820;
         font-weight: 750;
         font-size: 2.5rem;
         text-decoration: none;

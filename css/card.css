@@ -26,6 +26,11 @@
     & .__img {
         border-radius: 1rem;
         grid-row: 1 / -1;
+        aspect-ratio: 1 / 1.5;
+        object-fit: contain;
+
+        background: #000;
+        max-width: 30rem;
     }
 
     & .__content {

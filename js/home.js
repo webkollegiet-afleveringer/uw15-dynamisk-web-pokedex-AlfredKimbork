@@ -1,14 +1,18 @@
 import { useFetch } from "./useFetch.js";
-import { useFormat } from "./useFormat.js";
+import { formatList } from "./formats/formatList.js";
+import { params } from "./useParams.js";
 
+let page = params.get("page");
 const headerDOM = document.querySelector("#header");
 const mainDOM = document.querySelector("#main");
 let sortByNum = true;
 let currentPage = 1;
 let list
 
-async function loadMore(page = `https://swapi.dev/api/people/?format=json`) {
-    const data = await useFetch(page);
+if(page === null) page = "people"
+
+async function loadMore(url) {
+    const data = await useFetch(url);
     console.log(data)
     const characters = data.results;
     mainDOM.innerHTML = `<ul class="__list"></ul>`;
@@ -17,13 +21,13 @@ async function loadMore(page = `https://swapi.dev/api/people/?format=json`) {
     if(sortByNum) {
         list.innerHTML += characters
             .map(character => {
-                return useFormat(character)
+                return formatList(character, page)
             }).join(" ");
     
     } else {
         characters.sort((a, b) => a.name.localeCompare(b.name))
             for (let i = (currentPage * batchSize) - batchSize; i < currentPage * batchSize; i++) {
-                list.innerHTML += useFormat(characters[i]);
+                list.innerHTML += formatList(characters[i], page);
                 
                 
             }
@@ -90,8 +94,14 @@ async function loadMore(page = `https://swapi.dev/api/people/?format=json`) {
 }
 
 headerDOM.innerHTML = `
-    <a href="index.html" role="heading" value="1" class="heading">Star Regristry</a>
+    <a href="index.html" role="heading" value="1" class="heading --hollow">Star Regristry</a>
     <nav class="header-nav">
+        <ul>
+            <li><a href="index.html?page=people">People</a></li>
+            <li><a href="index.html?page=planets">Planets</a></li>
+            <li><a href="index.html?page=starships">Starships</a></li>
+        </ul>
+    </nav>
         <div class="search-container">
             <label class="search-label">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,22 +110,21 @@ headerDOM.innerHTML = `
             </label>
             <input type="text" id="search" class="searchbar" placeholder="Search">
         </div>
-    </nav>
 `;
 
-// const sortBtn = document.querySelector("#sort");
 
 document.querySelector("#search").addEventListener("input", async event => {
     list = document.querySelector(".__list");
 
     if(event.target.value.length !== 0) {
         list.innerHTML = "";
-        const searchedData = await useFetch(`https://swapi.dev/api/people/?search=${event.target.value}&format=json`);
-        searchedData.results.map(result => list.innerHTML += useFormat(result));
+        const searchedData = await useFetch(`https://swapi.dev/api/${page}/?search=${event.target.value}&format=json`);
+        searchedData.results.map(result => list.innerHTML += useFormatList(result, page));
     } else {
         list.innerHTML = "";
         loadMore();
     }
 });
 
-loadMore();
+if (page) loadMore(`https://swapi.dev/api/${page}/?format=json`);
+    else loadMore(`https://swapi.dev/api/people/?format=json`);

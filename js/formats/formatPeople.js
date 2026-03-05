@@ -1,0 +1,76 @@
+import { useFetch } from "../useFetch.js";
+
+export const formatPeople = async (card, id, data) => {
+
+    const filmData = await Promise.all(data.films.map(film => useFetch(film)))
+    const shipData = await Promise.all(data.starships.map(ship => useFetch(ship)))
+    const vehicleData = await Promise.all(data.vehicles.map(vehicle => useFetch(vehicle)))
+    let speciesData
+    
+    if(data.species.length !== 0 ) speciesData = await Promise.all(data.species.map(species => useFetch(species)));
+    else speciesData = [await useFetch(`https://swapi.dev/api/species/1/?format=json`)];
+
+    card.innerHTML +=  `
+        <img class="__img" src="../assets/img/people/${id}.jpg" alt="${data.name}">
+        <article class="__content">
+            <h2 class="--colored --center --hollow">About</h2>
+            <ul class="__attributes">
+                <li class="__item">
+                    <div>
+                        <svg width="22" height="20" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.995737 11.3333H9.7624L8.7124 4H2.04574L0.995737 11.3333ZM5.37907 3C5.66796 3 5.90685 2.90278 6.09574 2.70833C6.28463 2.51389 6.37907 2.27778 6.37907 2C6.37907 1.71111 6.28463 1.47222 6.09574 1.28333C5.90685 1.09444 5.66796 1 5.37907 1C5.10129 1 4.86518 1.09444 4.67074 1.28333C4.47629 1.47222 4.37907 1.71111 4.37907 2C4.37907 2.27778 4.47629 2.51389 4.67074 2.70833C4.86518 2.90278 5.10129 3 5.37907 3ZM7.1124 3H8.7124C8.96796 3 9.19018 3.08056 9.37907 3.24167C9.56796 3.40278 9.67907 3.61111 9.7124 3.86667L10.7457 11.2C10.7902 11.5 10.7152 11.7639 10.5207 11.9917C10.3263 12.2194 10.0735 12.3333 9.7624 12.3333H0.995737C0.684625 12.3333 0.431847 12.2194 0.237403 11.9917C0.0429586 11.7639 -0.0320413 11.5 0.0124031 11.2L1.04574 3.86667C1.07907 3.61111 1.19018 3.40278 1.37907 3.24167C1.56796 3.08056 1.79018 3 2.04574 3H3.64574C3.55685 2.84444 3.49018 2.68611 3.44574 2.525C3.40129 2.36389 3.37907 2.18889 3.37907 2C3.37907 1.44444 3.57351 0.972222 3.9624 0.583333C4.35129 0.194444 4.82351 0 5.37907 0C5.93463 0 6.40685 0.194444 6.79574 0.583333C7.18463 0.972222 7.37907 1.44444 7.37907 2C7.37907 2.18889 7.35685 2.36389 7.3124 2.525C7.26796 2.68611 7.20129 2.84444 7.1124 3ZM0.995737 11.3333H9.7624H0.995737Z" fill="#7d7d7d"/>
+                        </svg>
+                        <span>${data.mass} kg</span>
+                    </div>
+                    <h3 class="--light --center">Weight</h3>
+                </li>
+                <li class="__item">
+                    <div>
+                        <svg width="16" height="20" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M-2.38419e-07 1C-2.38419e-07 0.733333 0.1 0.5 0.3 0.3C0.5 0.1 0.733333 0 1 0L7 0C7.25556 0 7.48611 0.1 7.69167 0.3C7.89722 0.5 8 0.733333 8 1V12.3333C8 12.6 7.89722 12.8333 7.69167 13.0333C7.48611 13.2333 7.25556 13.3333 7 13.3333H1C0.733333 13.3333 0.5 13.2333 0.3 13.0333C0.1 12.8333 -2.38419e-07 12.6 -2.38419e-07 12.3333V1ZM1 1L1 12.3333H7V10.1667H4V9.16667H7L7 7.16667H4V6.16667H7V4.16667H4V3.16667L7 3.16667V1L1 1ZM4 3.16667V4.16667V3.16667ZM4 6.16667V7.16667V6.16667ZM4 9.16667V10.1667V9.16667Z" fill="#7d7d7d"/>
+                        </svg>
+                        <span>${data.height} cm</span>
+                    </div>
+                    <h3 class="--light --center">Height</h3>
+                </li>
+                <li class="__item">
+                    <div>
+                        <svg fill="#7d7d7d" width="22px" height="22px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6,22H18a3,3,0,0,0,3-3V7a2,2,0,0,0-2-2H17V3a1,1,0,0,0-2,0V5H9V3A1,1,0,0,0,7,3V5H5A2,2,0,0,0,3,7V19A3,3,0,0,0,6,22ZM5,12.5a.5.5,0,0,1,.5-.5h13a.5.5,0,0,1,.5.5V19a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1Z"/>
+                        </svg>
+                        <span>${data.birth_year}</span>
+                    </div>
+                    <h3 class="--light --center">Birth</h3>
+                </li>
+            </ul>
+            ${speciesData.map(species => {
+                        return `<h3 class="__species --hollow">${species.name}</h3>`
+                    }).join("")}
+            <section class="film __container">
+                <h3 class="--hollow">Films</h3>
+                <ul>
+                    ${filmData.map(film => {
+                        return `<li class="__item">${film.title} :: ep. ${film.episode_id}</li>`
+                    }).join("")}
+                </ul>
+            </section>
+            <section class="ship __container">
+                <h3 class="--hollow">Ships</h3>
+                <ul>
+                    ${shipData.map(ship => {
+                        return `<li class="__item">${ship.model} :: ${ship.starship_class}</li>`
+                    }).join("")}
+                </ul>
+            </section>
+            <section class="vehicle __container">
+                <h3 class="--hollow">Vehicles</h3>
+                <ul>
+                    ${vehicleData.map(vehicle => {
+                        return `<li class="__item">${vehicle.model} :: ${vehicle.vehicle_class}</li>`
+                    }).join("")}
+                </ul>
+            </section>
+        </article>
+    `;
+}
+

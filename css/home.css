@@ -83,18 +83,35 @@
 
 
 .page-nav {
-    margin-block: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 2rem;
 
-    & .page {
-        transform: translateY(-25%) scale(1.5);
-        }
+    color: #171717;
+
+    background: #E2AF03;
+    border-radius: 1rem;
+    width: fit-content;
+    margin: 1rem auto;
 
     & .--btn {
-        transform: scale(1.5);
         cursor:pointer;
+        padding: 1rem;
+        
+        & svg {
+            transform: scale(1.5);
+        }
+
+        &.prev-btn {
+            border-radius: 1rem 0 0 1rem;
+        }
+        &.next-btn {
+            border-radius: 0 1rem 1rem 0;
+        }
     }
+}
+
+.--off {
+    background: #00000040;
 }

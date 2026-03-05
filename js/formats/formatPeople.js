@@ -6,7 +6,7 @@ export const formatPeople = async (card, id, data) => {
     const shipData = await Promise.all(data.starships.map(ship => useFetch(ship)))
     const vehicleData = await Promise.all(data.vehicles.map(vehicle => useFetch(vehicle)))
     let speciesData
-    
+
     if(data.species.length !== 0 ) speciesData = await Promise.all(data.species.map(species => useFetch(species)));
     else speciesData = [await useFetch(`https://swapi.dev/api/species/1/?format=json`)];
 
@@ -58,7 +58,8 @@ export const formatPeople = async (card, id, data) => {
                 <h3 class="--hollow">Ships</h3>
                 <ul>
                     ${shipData.map(ship => {
-                        return `<li class="__item">${ship.model} :: ${ship.starship_class}</li>`
+                        const shipId = ship.url.slice(0, -1).split("/").pop(-1);
+                        return `<li class="__item"><a href="card.html?page=starships&id=${shipId}">${ship.model} :: ${ship.starship_class}</a></li>`
                     }).join("")}
                 </ul>
             </section>

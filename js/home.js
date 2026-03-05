@@ -11,9 +11,8 @@ let list
 
 if(page === null) page = "people"
 
-async function loadMore(url) {
+async function loadMore(url = ``) {
     const data = await useFetch(url);
-    console.log(data)
     const characters = data.results;
     mainDOM.innerHTML = `<ul class="__list"></ul>`;
     list = document.querySelector(".__list");
@@ -119,10 +118,12 @@ document.querySelector("#search").addEventListener("input", async event => {
     if(event.target.value.length !== 0) {
         list.innerHTML = "";
         const searchedData = await useFetch(`https://swapi.dev/api/${page}/?search=${event.target.value}&format=json`);
-        searchedData.results.map(result => list.innerHTML += useFormatList(result, page));
+        console.log(searchedData)
+        searchedData.results.map(result => list.innerHTML += formatList(result, page));
     } else {
         list.innerHTML = "";
-        loadMore();
+        if (page) loadMore(`https://swapi.dev/api/${page}/?format=json`);
+            else loadMore(`https://swapi.dev/api/people/?format=json`);
     }
 });
 

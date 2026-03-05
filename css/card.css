@@ -71,11 +71,6 @@
             }
         }
 
-        & .__species {
-            align-self: center;
-            font-size: 1.75rem;
-        }
-
         & .__container {
             font-size: 1rem;
 
@@ -90,9 +85,22 @@
     }
 }
 
+.__species {
+    align-self: center;
+    font-size: 1.75rem;
+}
 
+.__model {
+    align-self: center;
+    font-size: 1rem;
+}
 
 .__item {
     color: #7d7d7d;
     list-style: none;
+    
+    & a {
+        color: inherit;
+        text-decoration: none;
+    }
 }

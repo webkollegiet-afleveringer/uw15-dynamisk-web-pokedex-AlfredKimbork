@@ -1,5 +1,4 @@
 @import url(./base.css);
-@import url(./pokeTypes.css);
 
 #main {
     padding: 1rem;
@@ -85,7 +84,7 @@
     }
 }
 
-.__species {
+.__species, .__climate {
     align-self: center;
     font-size: 1.75rem;
 }

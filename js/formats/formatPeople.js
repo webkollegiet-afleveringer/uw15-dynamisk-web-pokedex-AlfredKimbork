@@ -5,6 +5,8 @@ export const formatPeople = async (card, id, data) => {
     const filmData = await Promise.all(data.films.map(film => useFetch(film)))
     const shipData = await Promise.all(data.starships.map(ship => useFetch(ship)))
     const vehicleData = await Promise.all(data.vehicles.map(vehicle => useFetch(vehicle)))
+    const homeworldData = await useFetch(data.homeworld)
+    const homeworldId = homeworldData.url.slice(0, -1).split("/").pop(-1);
     let speciesData
 
     if(data.species.length !== 0 ) speciesData = await Promise.all(data.species.map(species => useFetch(species)));
@@ -44,7 +46,7 @@ export const formatPeople = async (card, id, data) => {
                 </li>
             </ul>
             ${speciesData.map(species => {
-                        return `<h3 class="__species --hollow">${species.name}</h3>`
+                        return `<h3 class="__species --hollow">${species.name} :: <a href="card.html?page=planets&id=${homeworldId}">${homeworldData.name}</a></h3>`
                     }).join("")}
             <section class="film __container">
                 <h3 class="--hollow">Films</h3>

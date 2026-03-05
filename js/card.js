@@ -2,6 +2,7 @@ import { useFetch } from "./useFetch.js";
 import { params } from "./useParams.js";
 import { formatPeople } from "./formats/formatPeople.js";
 import { formatShip } from "./formats/formatShip.js";
+import { formatPlanet } from "./formats/formatPlanet.js";
 
 const id = params.get("id");
 const page = params.get("page");
@@ -47,6 +48,7 @@ mainDOM.innerHTML = `
 
 if(page === "people") formatPeople(card, id, data)
     else if(page === "starships") formatShip(card, id, data)
+    else if(page === "planets") formatPlanet(card, id, data)
 mainDOM.append(card)
 
 

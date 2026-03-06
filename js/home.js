@@ -84,14 +84,14 @@ async function loadMore(url = ``) {
         });
     } else document.querySelector("#nextBtn").classList.add("--off")
 }
-
+headerDOM.classList.add("--grid")
 headerDOM.innerHTML = `
     <a href="index.html" role="heading" value="1" class="heading --hollow">Star Regristry</a>
-    <nav class="header-nav">
-        <ul>
-            <li><a href="index.html?page=people">People</a></li>
-            <li><a href="index.html?page=planets">Planets</a></li>
-            <li><a href="index.html?page=starships">Starships</a></li>
+    <nav class="__nav">
+        <ul class="nav__list --flex">
+            <li class="__item"><a class="--hollow" href="index.html?page=people">People</a></li>
+            <li class="__item"><a class="--hollow" href="index.html?page=planets">Planets</a></li>
+            <li class="__item"><a class="--hollow" href="index.html?page=starships">Starships</a></li>
         </ul>
     </nav>
         <div class="search-container">
@@ -109,6 +109,7 @@ document.querySelector("#search").addEventListener("input", async event => {
     list = document.querySelector(".__list");
 
     if(event.target.value.length !== 0) {
+        currentPage = 1
         list.innerHTML = "";
         loadMore(`https://swapi.dev/api/${page}/?search=${event.target.value}&format=json`)
     } else {

@@ -138,20 +138,34 @@ headerDOM.innerHTML = `
 `;
 
 const sortBtn = document.querySelector("#sort");
+const searchbar = document.querySelector("#search");
 
-document.querySelector("#search").addEventListener("input", async event => {
+
+searchbar.addEventListener("input", async event => {
     pokeList = document.querySelector(".poke-list");
+    pokeList.innerHTML = ""
+    const input = event.target.value
 
-    if(event.target.value.length !== 0) {
-        const searched = await useFetch(`https://pokeapi.co/api/v2/pokemon/${event.target.value}/`)
-        pokeList.innerHTML = useFormat(searched)
+    if(input.length !== 0) {
+        let searched
+        if(sortByNum) {
+            searched = await useFetch(`https://pokeapi.co/api/v2/pokemon/${input}/`)
+            pokeList.innerHTML = useFormat(searched)
+        } else {
+                const data = await useFetch("https://pokeapi.co/api/v2/pokemon/?limit=1350")
+                searched = data.results.filter(pokemon => pokemon.name.includes(input))
+                pokeList.innerHTML += searched
+                    .map(searchResult => {
+                        return useFormat(searchResult)
+                    }).join(" ");
+            }
     } else {
-        pokeList.innerHTML = ""
         loadMore();
     }
 });
 
 sortBtn.addEventListener("click", () => {
+    searchbar.value = ""
     currentPage = 1
     if(sortByNum) {
         pokeList.innerHTML = ""

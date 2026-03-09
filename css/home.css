@@ -74,6 +74,8 @@ html {
 }
 
 .poke-list {
+    overflow: scroll;
+    max-height: 75dvh;
     display: grid;
     grid-template-columns: repeat(auto-fit, clamp(10rem, 25vw, 20rem));
     justify-content: center;

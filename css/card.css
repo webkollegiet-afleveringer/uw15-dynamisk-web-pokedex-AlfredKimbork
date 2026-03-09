@@ -9,7 +9,7 @@
     display: flex;
     gap: 1rem;
 
-    padding: 2.5rem 2.5rem 15rem;
+    padding: 2.5rem .5rem 12dvh;
     align-items: center;
 
     & h1 {
@@ -49,10 +49,12 @@
 }
 
 .__img {
+    pointer-events: none;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 5rem;
+    bottom: 55dvh;
+    max-width: 70dvw;
 }
 
 .__types {
@@ -162,5 +164,35 @@
     &::-webkit-progress-value {
         border-radius: 1rem 0 0 1rem;
         background: #B8B8B8;
+    }
+}
+
+@media (max-width: 375px) {
+    .__img {
+        transform: translateX(-50%);
+        bottom: 45dvh;
+    }
+
+}
+
+@media (min-width: 1100px) {
+    .__img {
+        transform: translateX(-50%);
+        bottom: 30dvh;
+    }
+
+    .__header {
+        padding-bottom: 30dvh;
+    }
+}
+
+@media (min-width: 1300px) {
+    .__img {
+    transform: translateX(-50%);
+    bottom: 50dvh;
+    }
+
+    .__header {
+        padding-bottom: 20dvh;
     }
 }

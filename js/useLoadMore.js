@@ -66,7 +66,6 @@ export async function loadMore(page = `https://pokeapi.co/api/v2/pokemon/?limit=
     
         document.querySelector("#nextBtn").addEventListener("click", () => {
             if(currentPage < Math.ceil(data.count / batchSize)) {
-    
                 currentPage++
                 if(sortByNum) loadMore(`https://pokeapi.co/api/v2/pokemon/?offset=${(currentPage * batchSize) - batchSize}&limit=${batchSize}`)
                     else loadMore("https://pokeapi.co/api/v2/pokemon/?limit=1350");
